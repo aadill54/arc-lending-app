@@ -1,0 +1,56 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  color: #e8e8f0;
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+}
+
+h1, h2, h3 { 
+  font-family: 'DM Serif Display', serif; 
+}
+
+.mono { 
+  font-family: 'DM Mono', monospace; 
+}
+
+/* Cards */
+.card {
+  background: #13131f;
+  border: 1px solid #2a2a3f;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+/* Inputs */
+input {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  background: #0a0a0f;
+  border: 1px solid #2a2a3f;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+input:focus {
+  border-color: #4fc3f7;
+}
