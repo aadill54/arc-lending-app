@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
   margin: 0;
@@ -23,7 +23,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove default input/button outlines and styles */
 input:focus {
   outline: none;
 }
@@ -47,7 +46,6 @@ select {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -67,14 +65,12 @@ select {
   background: #b0aec0;
 }
 
-/* Loading spinner animation (used in dashboard) */
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Smooth transitions for interactive elements */
 a {
   text-decoration: none;
   transition: color 0.15s ease;
@@ -85,7 +81,6 @@ img {
   display: block;
 }
 
-/* RainbowKit connect button overrides — keep it consistent with our design */
 [data-rk] button {
   font-family: 'Inter', sans-serif !important;
 }
