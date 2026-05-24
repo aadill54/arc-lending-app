@@ -1,7 +1,7 @@
 'use client'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { useAccount, useWriteContract, useReadContract } from 'wagmi'
-import { useState, useRef } from 'react'
+import { useAccount, useWriteContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi'
+import { useState, useRef, useEffect } from 'react'
 import { parseUnits, formatUnits } from 'viem'
 
 const CONTRACT_ADDRESS = '0xE425c320C07573623C6287C30B8Ee936F6977B63'
@@ -85,7 +85,37 @@ export default function Home() {
   const [newDuration, setNewDuration] = useState('24')
   const [resolveOption, setResolveOption] = useState(0)
 
+  // Separate write hooks so we can track each tx hash independently
+  const { writeContract: approveForDeposit, data: approveDepositHash } = useWriteContract()
+  const { writeContract: executeDeposit } = useWriteContract()
+  const { writeContract: executeBorrow } = useWriteContract()
+  const { writeContract: approveForBet, data: approveBetHash } = useWriteContract()
+  const { writeContract: executeBet } = useWriteContract()
   const { writeContract } = useWriteContract()
+
+  // Track pending amounts so we can fire step 2 after approve confirms
+  const [pendingDepositAmt, setPendingDepositAmt] = useState<bigint | null>(null)
+  const [pendingBetData, setPendingBetData] = useState<{marketId: bigint; option: bigint; amount: bigint} | null>(null)
+
+  // Wait for approve receipts
+  const { isSuccess: depositApproveOk } = useWaitForTransactionReceipt({ hash: approveDepositHash })
+  const { isSuccess: betApproveOk } = useWaitForTransactionReceipt({ hash: approveBetHash })
+
+  // Step 2: fire deposit after approve confirms
+  useEffect(() => {
+    if (depositApproveOk && pendingDepositAmt !== null) {
+      executeDeposit({ address: CONTRACT_ADDRESS, abi: LENDING_ABI, functionName: 'deposit', args: [pendingDepositAmt] })
+      setPendingDepositAmt(null)
+    }
+  }, [depositApproveOk])
+
+  // Step 2: fire placeBet after approve confirms
+  useEffect(() => {
+    if (betApproveOk && pendingBetData !== null) {
+      executeBet({ address: PREDICTION_ADDRESS, abi: PREDICTION_ABI, functionName: 'placeBet', args: [pendingBetData.marketId, pendingBetData.option, pendingBetData.amount] })
+      setPendingBetData(null)
+    }
+  }, [betApproveOk])
 
   // FIX: properly handle loading states for on-chain data
   const { data: depositedRaw, isLoading: depositLoading } = useReadContract({
@@ -132,8 +162,10 @@ export default function Home() {
     if (!lendAmount || Number(lendAmount) <= 0) { showToast('❌ Enter a valid amount', 'error'); return }
     const amount = parseUnits(lendAmount, 18)
     showTxConfirm('Deposit', lendAmount, 'USDC', () => {
-      writeContract({ address: USDC_ADDRESS, abi: USDC_ABI, functionName: 'approve', args: [CONTRACT_ADDRESS, amount] })
-      setTimeout(() => writeContract({ address: CONTRACT_ADDRESS, abi: LENDING_ABI, functionName: 'deposit', args: [amount] }), 5000)
+      // Step 1: approve — MetaMask will show the exact USDC amount
+      setPendingDepositAmt(amount)
+      approveForDeposit({ address: USDC_ADDRESS, abi: USDC_ABI, functionName: 'approve', args: [CONTRACT_ADDRESS, amount] })
+      // Step 2: deposit fires automatically via useEffect when approve confirms
     })
     setLendAmount('')
   }
@@ -164,8 +196,10 @@ export default function Home() {
     if (!betAmount || Number(betAmount) <= 0) { showToast('❌ Enter a bet amount!', 'error'); return }
     const amount = parseUnits(betAmount, 18)
     showTxConfirm('Place Bet', betAmount, 'USDC', () => {
-      writeContract({ address: USDC_ADDRESS, abi: USDC_ABI, functionName: 'approve', args: [PREDICTION_ADDRESS, amount] })
-      setTimeout(() => writeContract({ address: PREDICTION_ADDRESS, abi: PREDICTION_ABI, functionName: 'placeBet', args: [BigInt(market.id), BigInt(betOption), amount] }), 5000)
+      // Step 1: approve — MetaMask will show exact USDC amount
+      setPendingBetData({ marketId: BigInt(market.id), option: BigInt(betOption), amount })
+      approveForBet({ address: USDC_ADDRESS, abi: USDC_ABI, functionName: 'approve', args: [PREDICTION_ADDRESS, amount] })
+      // Step 2: placeBet fires automatically via useEffect when approve confirms
       setMarkets(prev => prev.map(m => { if (m.id !== market.id) return m; const p = [...m.pools]; p[betOption] = (p[betOption] || 0) + Number(betAmount); return { ...m, totalPool: m.totalPool + Number(betAmount), pools: p } }))
     })
     setBetAmount(''); setSelectedMarket(null)
