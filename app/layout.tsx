@@ -3,7 +3,7 @@ import { Providers } from './providers'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'ArcFi — Onchain Finance on Arc Testnet',
+  title: 'Zenlend — Onchain Finance on Arc Testnet',
   description: 'Swap, lend, borrow, trade NFTs and predict markets on Arc Testnet',
 }
 

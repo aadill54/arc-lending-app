@@ -200,13 +200,11 @@ export default function Home() {
     { id: 'dashboard', label: 'Dashboard' },
   ]
 
-  // Common styles
   const card = { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '1.5rem', backdropFilter: 'blur(10px)' } as React.CSSProperties
   const inp = { width: '100%', padding: '0.85rem 1rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: 'white', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' as const }
   const pill = (active: boolean, color = '#6366f1') => ({ padding: '0.45rem 1rem', borderRadius: '12px', border: `1px solid ${active ? color : 'rgba(255,255,255,0.1)'}`, cursor: 'pointer', fontWeight: active ? '600' : '400', fontSize: '0.85rem', background: active ? color + '22' : 'transparent', color: active ? color : '#888', transition: 'all 0.15s' } as React.CSSProperties)
   const btnGrad = (from: string, to: string) => ({ width: '100%', padding: '1rem', background: `linear-gradient(135deg, ${from}, ${to})`, color: 'white', border: 'none', borderRadius: '14px', fontSize: '1rem', fontWeight: '700', cursor: 'pointer' } as React.CSSProperties)
 
-  // BG mesh style
   const meshBg = {
     minHeight: '100vh',
     background: '#07070f',
@@ -222,7 +220,6 @@ export default function Home() {
 
   return (
     <div style={meshBg}>
-      {/* CSS animations */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         @keyframes marquee { 0% { transform: translateX(0) } 100% { transform: translateX(-50%) } }
@@ -245,17 +242,14 @@ export default function Home() {
         select option { background: #0f0f1e; color: white; }
       `}</style>
 
-      {/* NAVBAR */}
       <nav style={{ position: 'sticky', top: 0, zIndex: 200, background: 'rgba(7,7,15,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 2rem' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
-          {/* Logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer' }} onClick={() => setActivePage('home')}>
-            <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg, #6366f1, #10b981)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.1rem' }}>A</div>
-            <span style={{ fontWeight: '800', fontSize: '1.2rem', letterSpacing: '-0.02em' }}>ArcFi</span>
+            <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg, #6366f1, #10b981)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.1rem' }}>Z</div>
+            <span style={{ fontWeight: '800', fontSize: '1.2rem', letterSpacing: '-0.02em' }}>Zenlend</span>
             <span style={{ background: 'rgba(99,102,241,0.2)', color: '#a5b4fc', padding: '0.15rem 0.5rem', borderRadius: '6px', fontSize: '0.7rem', fontWeight: '600', border: '1px solid rgba(99,102,241,0.3)' }}>TESTNET</span>
           </div>
 
-          {/* Desktop Nav */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
             {navItems.map(item => (
               <button key={item.id} onClick={() => setActivePage(item.id)} className="nav-link"
@@ -265,7 +259,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Right */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer"
               style={{ padding: '0.45rem 0.85rem', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '10px', color: '#10b981', fontWeight: '600', fontSize: '0.8rem', textDecoration: 'none' }}>
@@ -276,7 +269,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* MARQUEE */}
       <div style={{ background: 'rgba(99,102,241,0.08)', borderBottom: '1px solid rgba(99,102,241,0.15)', padding: '0.6rem 0', overflow: 'hidden' }}>
         <div className="marquee-track">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
@@ -287,10 +279,8 @@ export default function Home() {
 
       <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1.5rem' }}>
 
-        {/* HOME PAGE */}
         {activePage === 'home' && (
           <div>
-            {/* HERO */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', minHeight: '80vh', paddingTop: '4rem' }}>
               <div className="fadeUp">
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '20px', padding: '0.4rem 1rem', marginBottom: '1.5rem', fontSize: '0.8rem', color: '#a5b4fc', fontWeight: '600' }}>
@@ -316,13 +306,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Hero visual */}
               <div style={{ position: 'relative', height: '450px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {/* Center orb */}
                 <div style={{ position: 'absolute', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(40px)' }} />
-                {/* Main coin */}
                 <div className="float" style={{ position: 'relative', zIndex: 2, fontSize: '6rem', filter: 'drop-shadow(0 0 30px rgba(99,102,241,0.5))' }}>⬡</div>
-                {/* Floating tokens */}
                 {[
                   { icon: '💵', x: '-120px', y: '-80px', cls: 'float2', size: '2.5rem' },
                   { icon: '⟠', x: '100px', y: '-100px', cls: 'float3', size: '2rem' },
@@ -335,13 +321,11 @@ export default function Home() {
                     {t.icon}
                   </div>
                 ))}
-                {/* Ring */}
                 <div style={{ position: 'absolute', width: '280px', height: '280px', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '50%', animation: 'spin-slow 20s linear infinite' }} />
                 <div style={{ position: 'absolute', width: '350px', height: '350px', border: '1px dashed rgba(16,185,129,0.1)', borderRadius: '50%', animation: 'spin-slow 30s linear infinite reverse' }} />
               </div>
             </div>
 
-            {/* STATS */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', margin: '4rem 0' }}>
               {[
                 { num: '$2M+', label: 'Total Value Locked', color: '#6366f1' },
@@ -356,7 +340,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* SERVICES */}
             <div style={{ marginBottom: '4rem' }}>
               <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <div style={{ color: '#6366f1', fontSize: '0.8rem', fontWeight: '700', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>What We Offer</div>
@@ -385,7 +368,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* PARTNERS MARQUEE */}
             <div style={{ marginBottom: '4rem', padding: '2rem 0', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
               <div style={{ textAlign: 'center', color: '#444', fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>Powered By</div>
               <div style={{ overflow: 'hidden' }}>
@@ -397,10 +379,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* CTA */}
             <div style={{ textAlign: 'center', padding: '4rem 2rem', background: 'radial-gradient(ellipse at center, rgba(99,102,241,0.1) 0%, transparent 70%)', borderRadius: '24px', border: '1px solid rgba(99,102,241,0.15)', marginBottom: '2rem' }}>
               <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.03em' }}>Start Building Onchain</h2>
-              <p style={{ color: '#666', marginBottom: '2rem', fontSize: '1rem' }}>Get free testnet USDC and start using ArcFi in minutes</p>
+              <p style={{ color: '#666', marginBottom: '2rem', fontSize: '1rem' }}>Get free testnet USDC and start using Zenlend in minutes</p>
               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                 <button onClick={() => setActivePage('swap')}
                   style={{ padding: '0.9rem 2.5rem', background: 'linear-gradient(135deg, #6366f1, #10b981)', color: 'white', border: 'none', borderRadius: '14px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer' }}>
@@ -415,7 +396,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* DASHBOARD */}
         {activePage === 'dashboard' && (
           <div>
             <h2 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>Your Portfolio</h2>
@@ -484,7 +464,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* SWAP */}
         {activePage === 'swap' && (
           <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '3rem' }}>
             <div style={{ width: '480px' }}>
@@ -536,7 +515,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* LEND */}
         {activePage === 'lend' && (
           <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}>
             <div style={{ width: '520px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -572,7 +550,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* BORROW */}
         {activePage === 'borrow' && (
           <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}>
             <div style={{ width: '520px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -612,7 +589,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* NFT */}
         {activePage === 'nft' && (
           <div>
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
@@ -711,7 +687,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* PREDICT */}
         {activePage === 'predict' && (
           <div>
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
@@ -842,7 +817,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* HISTORY */}
         {activePage === 'history' && (
           <div style={card}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -883,14 +857,13 @@ export default function Home() {
 
       </main>
 
-      {/* FOOTER */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '3rem 2rem 2rem', marginTop: '4rem' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '3rem', marginBottom: '3rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem' }}>
-                <div style={{ width: '32px', height: '32px', background: 'linear-gradient(135deg, #6366f1, #10b981)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900' }}>A</div>
-                <span style={{ fontWeight: '800', fontSize: '1.1rem' }}>ArcFi</span>
+                <div style={{ width: '32px', height: '32px', background: 'linear-gradient(135deg, #6366f1, #10b981)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900' }}>Z</div>
+                <span style={{ fontWeight: '800', fontSize: '1.1rem' }}>Zenlend</span>
               </div>
               <p style={{ color: '#444', fontSize: '0.85rem', lineHeight: '1.7', maxWidth: '300px' }}>The next generation DeFi + NFT + Prediction Market platform built on Arc Testnet with real onchain transactions.</p>
             </div>
@@ -918,7 +891,7 @@ export default function Home() {
             ))}
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ color: '#333', fontSize: '0.8rem' }}>© 2026 ArcFi. Built on Arc Testnet · Chain ID: 5042002</span>
+            <span style={{ color: '#333', fontSize: '0.8rem' }}>© 2026 Zenlend. Built on Arc Testnet · Chain ID: 5042002</span>
             <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
               <span style={{ background: 'rgba(16,185,129,0.1)', color: '#10b981', padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.75rem', fontWeight: '600', border: '1px solid rgba(16,185,129,0.2)' }}>🟢 Arc Testnet Live</span>
             </div>
@@ -926,7 +899,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* TX POPUP */}
       {showTxPopup && pendingTx && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2000 }}>
           <div style={{ ...card, maxWidth: '360px', width: '90%', textAlign: 'center', border: '1px solid rgba(99,102,241,0.3)' }}>
@@ -951,7 +923,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* TOAST */}
       {toast && (
         <div style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', background: toastType === 'success' ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)', border: `1px solid ${toastType === 'success' ? 'rgba(16,185,129,0.4)' : 'rgba(239,68,68,0.4)'}`, color: toastType === 'success' ? '#10b981' : '#ef4444', padding: '0.9rem 1.25rem', borderRadius: '14px', fontWeight: '600', zIndex: 9999, backdropFilter: 'blur(10px)', fontSize: '0.9rem' }}>
           {toast}
